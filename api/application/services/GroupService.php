@@ -5,6 +5,7 @@
     require_once __DIR__.'/../../domain/validators/GroupValidator.php';
     require_once __DIR__.'/../interfaces/GroupRepository.php';
     require_once __DIR__.'/../transformers/GroupTransformer.php';
+    require_once __DIR__.'/../../application/dtos/ResponseDto.php';
 
     class GroupService {
 
@@ -133,6 +134,10 @@
 
             $userTokenDetails = $request->getTokenDetails();
             $isTokenValid = $this->authenticationService->isTokenValid($userTokenDetails);
+            $groupFromDb = $this->groupRepository->getGroupById($id, $userTokenDetails->getId());
+
+            if($groupFromDb->getIdUser() != $userTokenDetails->getId())
+                return $response->fail(new TokenNotValid("Token was compromised!", 401));
             if(!$isTokenValid)
                 return $response->fail(new TokenNotValid("The token is not valid or it's expired.", 401));
 

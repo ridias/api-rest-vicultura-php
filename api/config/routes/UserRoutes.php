@@ -8,14 +8,16 @@ require __DIR__ . '/../factories/CreatorAuthenticationController.php';
 
 return function (App $app){
 
-    $app->get('/users/tokenvalid', function (Request $request, Response $response, $args){
-        $token = $_COOKIE["vicultura_token"];
-        $controller = CreatorAuthenticationController::getConfiguration();
-        $valid = $controller->isTokenValid($token);
-        var_dump($token);
-        var_dump($valid);
-        echo "Token valid: " . $valid;
-        return $response;
+    $app->get('/users/verify/email', function (Request $request, Response $response, $args){
+
+    });
+
+    $app->get('/users/verify/username', function(Request $request, Response $response, $args){
+
+    });
+
+    $app->get('/users/verify/password', function(Request $request, Response $response, $args){
+
     });
 
     $app->post('/users/register', function (Request $request, Response $response, $args){
@@ -28,7 +30,7 @@ return function (App $app){
         return $controller->login($request, $response);
     });
 
-    $app->put('/users/{id:[0-9]+}', function (Request $request, Response $response, $args){
+    $app->put('/users', function (Request $request, Response $response, $args){
 
     });
 };

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../application/dtos/ResponseDto.php';
+require_once __DIR__ . '/../../application/dtos/ResponseBaseDto.php';
 
 abstract class BaseController {
 
@@ -9,11 +9,11 @@ abstract class BaseController {
         
     }
 
-    protected function getOkPayload(ResponseDto $response): string {
+    protected function getOkPayload(ResponseBaseDto $response): string {
         return $this->getResponsePayload("OK", "200", $response);
     }
 
-    protected function getCreatedPayload(ResponseDto $response): string {
+    protected function getCreatedPayload(ResponseBaseDto $response): string {
         return $this->getResponsePayload("Created", "201", $response);
     }
 
@@ -67,7 +67,7 @@ abstract class BaseController {
         ));
     }
 
-    private function getResponsePayload(string $status, string $code, ResponseDto $responseDto): string {
+    private function getResponsePayload(string $status, string $code, ResponseBaseDto $responseDto): string {
         return json_encode(array(
             "status" => $status,
             "code" => $code,

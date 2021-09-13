@@ -129,12 +129,28 @@
             $conn = $this->db->getConnection();
 
             try {
-                $statement = $conn->prepare("UPDATE viculturadb.users SET username = ?, email = ?, password = ? where id = ? ;");
+                $statement = $conn->prepare("UPDATE viculturadb.users SET username = ?, email = ? where id = ? ;");
                 $statement->execute(array(
                     $user->getUsername(),
                     $user->getEmail(),
-                    $user->getPassword(),
                     $user->getId()
+                ));
+            }catch(Exception $ex){
+                echo "It wasn't possible to update the user to the database, more details: " . $ex->getMessage();
+            }
+
+            $this->db->closeConnection();
+        }
+
+        public function updatePassword(string $password, int $idUser): void {
+            $this->db = DatabaseConnection::getInstance();
+            $conn = $this->db->getConnection();
+
+            try {
+                $statement = $conn->prepare("UPDATE viculturadb.users SET password = ? where id = ? ;");
+                $statement->execute(array(
+                    $password,
+                    $idUser
                 ));
             }catch(Exception $ex){
                 echo "It wasn't possible to update the user to the database, more details: " . $ex->getMessage();

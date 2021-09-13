@@ -13,6 +13,7 @@
         public function __construct()
         {
             parent::__construct();
+            $this->dateCreated = new DateTime('0001-01-01 00:00:00');
         }
 
         public function getName(): string { return $this->name; }

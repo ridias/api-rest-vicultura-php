@@ -18,13 +18,13 @@ return function (App $app){
         return $controller->add($request, $response); 
     });
 
-    $app->put('/objectives/{id:[0-9]+}', function(Request $request, Response $response, $args){
+    $app->put('/objectives', function(Request $request, Response $response, $args){
         $controller = CreatorObjectiveConfiguration::getConfiguration();
         return $controller->updateProgress($request, $response); 
     });
 
     $app->delete('/objectives/{id:[0-9]+}', function(Request $request, Response $response, $args){
         $controller = CreatorObjectiveConfiguration::getConfiguration();
-        return $controller->delete($request, $response); 
+        return $controller->delete($request, $response, $args); 
     });
 };

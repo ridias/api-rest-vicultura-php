@@ -6,7 +6,7 @@
 
         public function __construct()
         {
-
+            $this->id = -1;
         }
 
         public function setId(int $id): void { $this->id = $id; }

@@ -10,5 +10,6 @@
         public function getByUsernameAndId(int $id, string $username): User;
         public function add(User $user): User;
         public function update(User $user): void;
+        public function updatePassword(string $password, int $idUser): void;
     }
 ?>

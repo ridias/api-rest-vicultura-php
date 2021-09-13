@@ -1,6 +1,8 @@
 <?php
 
-class ResponseDto {
+require_once __DIR__ . '/ResponseBaseDto.php';
+
+class ResponseDto extends ResponseBaseDto {
 
     public bool $success;
     public int $totalCount;
@@ -12,7 +14,7 @@ class ResponseDto {
         
     }
 
-    public function ok(array $data): ResponseDto {
+    public function ok(array $data, array $args = null): ResponseDto {
         $response = new ResponseDto();
         $response->success = true;
         $response->totalCount = count($data);

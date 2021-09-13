@@ -7,6 +7,7 @@
     require_once __DIR__.'/../transformers/MaterialTransformer.php';
     require_once __DIR__ . '/../dtos/RequestPaginationDto.php';
     require_once __DIR__ . '/../dtos/ResponsePaginationDto.php';
+    require_once __DIR__ . '/../dtos/ResponseDto.php';
 
     class MaterialService {
 
@@ -48,17 +49,13 @@
                 array_push($resultDtos, MaterialTransformer::transformToDto($resultEntities[$i])->toJSON());
             }
 
-            $pagination = array(
+            $args = array(
                 "currentPage" => $currentPage,
-                "pageSize" => $limit,
-                "totalPages" => floor($total / $limit),
-                "hasNextPage" => ($currentPage + 1) * $limit <= $total ? true : false,
-                "hasPreviousPage" => ($currentPage - 1) < 0 ? false : true,
-                "nextPageNumber" => ($currentPage + 1) * $limit <= $total ? $currentPage + 1 : -1,
-                "previousPageNumber" => ($currentPage - 1) < 0 ? -1 : $currentPage - 1
+                "limit" => $limit,
+                "total" => $total
             );
 
-            return $response->okResponsePagination($resultDtos, $pagination);
+            return $response->ok($resultDtos, $args);
         }
 
         public function getById(RequestDto $request): ResponseDto {
